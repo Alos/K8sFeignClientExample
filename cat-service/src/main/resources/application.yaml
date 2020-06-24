@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: cat-service
+    kubernetes:
+      reload:
+        enabled: true
+        mode: polling
+        period: 5000
+      config:
+        sources:
+        - name: ${spring.application.name}
+
+feign:
+  hystrix:
+    enabled: true
+
+#Actuator endpoints
+management:
+  endpoint:
+    restart:
+      enabled: true
+    health:
+      enabled: true
+    prometheus:
+      enabled: true
+  server:
+    port: 8081
