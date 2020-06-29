@@ -17,7 +17,6 @@ public class DogServiceApplication {
 
   @Bean
   public Customizer<Resilience4JCircuitBreakerFactory> defaultCustomizer() {
-
     return factory ->
         factory.configureDefault(
             id ->
