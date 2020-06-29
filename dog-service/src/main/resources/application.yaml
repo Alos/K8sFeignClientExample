@@ -9,15 +9,17 @@ spring:
       config:
         sources:
         - name: ${spring.application.name}
-
   cloud:
     loadbalancer:
       ribbon:
         enabled: false
 
-feign:
-  hystrix:
-    enabled: true
+
+#Logging configuration
+logging:
+  level:
+    org.springframework.cloud.kubernetes: ERROR
+    io.github.resilience4j: DEBUG
 
 #Actuator endpoints
 management:
