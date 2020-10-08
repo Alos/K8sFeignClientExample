@@ -13,4 +13,7 @@ public interface CatClient {
 
   @GetMapping("/api/v1/cats")
   List<Cat> getAllCats();
+
+  @GetMapping("/api/v1/cats2")
+  List<Cat> getAllCats2();
 }
