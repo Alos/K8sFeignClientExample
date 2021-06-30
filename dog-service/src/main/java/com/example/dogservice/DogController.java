@@ -1,6 +1,10 @@
 package com.example.dogservice;
 
+import feign.Client;
+import feign.Feign;
 import feign.FeignException;
+import feign.jackson.JacksonDecoder;
+import feign.jackson.JacksonEncoder;
 import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class DogController {
 
+  private final Client feignClient;
   private final CatClient catClient;
 
   @GetMapping("/api/v1/talk")
@@ -21,6 +26,17 @@ public class DogController {
   }
 
   @GetMapping("/api/v1/talk2")
+  public List<Cat> talkToCatServiceWithDynamicClient() {
+    CatApi dynamicCatClient =
+        Feign.builder()
+            .client(feignClient)
+            .encoder(new JacksonEncoder())
+            .decoder(new JacksonDecoder())
+            .target(CatApi.class, "http://cat-service");
+    return dynamicCatClient.getAllCats();
+  }
+
+  @GetMapping("/api/v1/fail-talk2")
   public List<Cat> talkWithCatService2() {
     try {
       return catClient.getAllCats2();

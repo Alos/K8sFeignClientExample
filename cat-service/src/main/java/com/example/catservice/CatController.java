@@ -11,6 +11,7 @@ public class CatController {
   public List<Cat> getAllCats() {
     Cat catA = new Cat("Fluffy", 12);
     Cat catB = new Cat("Grumpy cat", 30);
-    return List.of(catA, catB);
+    Cat catC = new Cat("Maru", 22);
+    return List.of(catA, catB, catC);
   }
 }

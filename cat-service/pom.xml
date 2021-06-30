@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.3.1.RELEASE</version>
+    <version>2.5.1</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
@@ -20,18 +20,18 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
-    <java.version>11</java.version>
+    <maven.compiler.source>15</maven.compiler.source>
+    <maven.compiler.target>15</maven.compiler.target>
+    <java.version>15</java.version>
 
     <gcr.repository>feignclientdemo</gcr.repository>
 
     <!-- Dependency versions -->
-    <versions.jib>2.4.0</versions.jib>
-    <versions.lombok>1.18.12</versions.lombok>
-    <versions.spring-cloud-gcp>1.2.4.BUILD-SNAPSHOT</versions.spring-cloud-gcp>
-    <versions.spring-cloud>Hoxton.SR5</versions.spring-cloud>
-    <versions.grpc-bom>1.28.0</versions.grpc-bom>
+    <versions.jib>3.0.0</versions.jib>
+    <versions.lombok>1.18.20</versions.lombok>
+
+    <spring-cloud-gcp.version>2.0.2</spring-cloud-gcp.version>
+    <spring-cloud.version>2020.0.2</spring-cloud.version>
   </properties>
 
   <dependencies>
@@ -59,17 +59,27 @@
 
     <dependency>
       <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+      <artifactId>spring-cloud-starter-kubernetes-client-all</artifactId>
     </dependency>
 
     <dependency>
       <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+      <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-kubernetes-all</artifactId>
+      <groupId>io.github.resilience4j</groupId>
+      <artifactId>resilience4j-spring-boot2</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>io.github.resilience4j</groupId>
+      <artifactId>resilience4j-micrometer</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>io.github.resilience4j</groupId>
+      <artifactId>resilience4j-feign</artifactId>
     </dependency>
 
     <dependency>
@@ -83,22 +93,15 @@
     <dependencies>
       <dependency>
         <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-gcp-dependencies</artifactId>
-        <version>${versions.spring-cloud-gcp}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-dependencies</artifactId>
-        <version>${versions.spring-cloud}</version>
+        <version>${spring-cloud.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
-        <groupId>io.grpc</groupId>
-        <artifactId>grpc-bom</artifactId>
-        <version>${versions.grpc-bom}</version>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>spring-cloud-gcp-dependencies</artifactId>
+        <version>${spring-cloud-gcp.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -117,9 +120,7 @@
         <version>${versions.jib}</version>
         <configuration>
           <from>
-            <image>
-              gcr.io/distroless/java@sha256:c94feda039172152495b5cd60a350a03162fce4f8986b560ea555de4d276ce19
-            </image>
+            <image>adoptopenjdk:15-jre</image>
           </from>
           <to>
             <image>gcr.io/${gcr.repository}/${project.artifactId}</image>

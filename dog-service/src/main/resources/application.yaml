@@ -18,7 +18,7 @@ spring:
 #Logging configuration
 logging:
   level:
-    org.springframework.cloud.kubernetes: ERROR
+    org.springframework.cloud.kubernetes: DEBUG
     io.github.resilience4j: DEBUG
 
 #Actuator endpoints
@@ -27,8 +27,6 @@ management:
     restart:
       enabled: true
     health:
-      enabled: true
-    prometheus:
       enabled: true
   server:
     port: 8081
